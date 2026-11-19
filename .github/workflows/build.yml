@@ -1,0 +1,25 @@
+
+name: Build Windows EXE
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake -S PS5_Experimental_Emulator_0_1 -B build -A x64
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: PS5ExperimentalEmulator-Windows
+          path: build/Release/PS5ExperimentalEmulator.exe
