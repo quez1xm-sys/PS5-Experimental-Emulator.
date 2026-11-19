@@ -9,13 +9,15 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - name: Configure
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Configure CMake
         run: cmake -S PS5_Experimental_Emulator_0_1 -B build -A x64
 
-      - name: Build
+      - name: Build Release
         run: cmake --build build --config Release
 
       - name: Upload EXE
